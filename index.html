@@ -50,18 +50,18 @@
             position: absolute;
             width: 120%; /* Slightly larger than the logo to create a smoke effect */
             height: 120%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 90%); /* White smoke effect */
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%); /* Brighter white smoke effect */
             top: -10%; /* Shift upward slightly */
             left: -10%; /* Shift leftward slightly */
             z-index: -1; /* Behind the logo */
             border-radius: 50%; /* Soft circular shape */
-            opacity: 0.7; /* Subtle transparency */
+            opacity: 0.8; /* Increased opacity for more whiteness */
             animation: smokePulse 3s infinite ease-in-out; /* Gentle pulsing effect */
         }
         @keyframes smokePulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 0.7; }
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
         .nav {
             padding: 10px 0;
@@ -274,7 +274,7 @@
             </ul>
         </div>
         <div class="hero-content">
-            <img src="ncon.png" alt="N Consult Financial Services Logo" class="hero-logo">
+            <img src="n-consult-logo.png" alt="N Consult Financial Services Logo" class="hero-logo">
             <h2><span class="we">We</span> Nurture Business</h2>
             <p>At N Consult, we are a team of seasoned professionals with a combined 16 years of experience in the finance industry. Our mission is to ensure your business remains fully compliant while giving you the freedom to focus on your core activities.</p>
             <p>We value our clients' entrepreneurial vision and see ourselves as a partner in helping your business set and achieve long-term goals. Our services cater to all your financial management, compliance, budgeting and planning, performance evaluation, and growth facilitation needs.</p>
