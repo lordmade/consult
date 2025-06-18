@@ -176,8 +176,10 @@
             animation: slide 20s linear infinite;
         }
         .logo-slide img {
-            height: 100px;
+            height: 100px; /* Uniform height */
+            width: 100px; /* Uniform width */
             margin: 0 20px;
+            object-fit: contain; /* Ensures the image scales proportionally within the size */
             opacity: 0;
             animation: enterFromRight 1s ease-out forwards;
         }
@@ -225,7 +227,8 @@
                 grid-template-columns: 1fr;
             }
             .logo-slide img {
-                height: 80px;
+                height: 80px; /* Reduced size for mobile */
+                width: 80px;  /* Reduced size for mobile */
                 margin: 0 10px;
             }
         }
