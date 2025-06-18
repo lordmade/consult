@@ -175,26 +175,34 @@
         }
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
             margin-top: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .card {
             background: #f9f9f9;
             padding: 20px;
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: left;
+            text-align: center;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(255, 98, 0, 0.2);
         }
         .card img {
-            max-width: 100%;
-            height: auto;
-            /* Removed border-radius: 50% to make images rectangular */
+            max-width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border: 4px solid #ff6200;
+            border-radius: 5px;
             margin-bottom: 15px;
         }
         .cta {
@@ -256,6 +264,10 @@
             .hero-logo::before {
                 width: 130%; /* Adjust smoke effect size for mobile */
                 height: 130%;
+            }
+            .card img {
+                max-width: 150px;
+                height: 150px;
             }
         }
     </style>
