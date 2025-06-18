@@ -208,6 +208,21 @@
             background-color: #ff6200;
             color: white;
         }
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6200;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #ff4500;
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -250,9 +265,14 @@
             .subscription-table, .addon-table {
                 width: 100%;
             }
+            .download-btn {
+                width: 100%;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="hero" id="services">
@@ -374,6 +394,7 @@
         </div>
         <table class="subscription-table" id="subscriptionTable"></table>
         <table class="addon-table" id="addonTable"></table>
+        <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
     </div>
 
     <div class="cta">
@@ -507,6 +528,107 @@
                 addonTable.innerHTML = '';
             }
         });
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const subscriptionTable = document.getElementById('subscriptionTable');
+            const addonTable = document.getElementById('addonTable');
+            let yPos = 10;
+
+            // Generate LaTeX content dynamically
+            let latexContent = `
+                \\documentclass[a4paper]{article}
+                \\usepackage[utf8]{inputenc}
+                \\usepackage{geometry}
+                \\geometry{a4paper, margin=1in}
+                \\usepackage{booktabs}
+                \\usepackage{longtable}
+                \\usepackage{colortbl}
+                \\usepackage{xcolor}
+                \\definecolor{orangecolor}{RGB}{255, 98, 0}
+
+                \\begin{document}
+
+                \\section*{N Consult Financial Services - Service Details}
+                \\centering
+                Generated on: June 18, 2025, 01:51 PM SAST
+            `;
+
+            if (subscriptionTable.style.display !== 'none' && subscriptionTable.innerHTML) {
+                latexContent += `
+                    \\subsection*{Subscription Details}
+                    \\begin{longtable}{p{0.4\\textwidth} p{0.4\\textwidth}}
+                    \\toprule
+                    \\rowcolor{orangecolor} Service & Details \\\\
+                    \\midrule
+                    \\endhead
+                `;
+                const rows = subscriptionTable.getElementsByTagName('tr');
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName('td');
+                    if (cells.length === 2) {
+                        latexContent += `${cells[0].textContent} & ${cells[1].textContent} \\\\`;
+                    }
+                }
+                latexContent += `\\bottomrule\n\\end{longtable}\n`;
+            }
+
+            if (addonTable.style.display !== 'none' && addonTable.innerHTML) {
+                latexContent += `
+                    \\subsection*{Add-On Details}
+                    \\begin{longtable}{p{0.4\\textwidth} p{0.4\\textwidth}}
+                    \\toprule
+                    \\rowcolor{orangecolor} Service & Price \\\\
+                    \\midrule
+                    \\endhead
+                `;
+                const rows = addonTable.getElementsByTagName('tr');
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName('td');
+                    if (cells.length === 2) {
+                        latexContent += `${cells[0].textContent} & ${cells[1].textContent} \\\\`;
+                    }
+                }
+                latexContent += `\\bottomrule\n\\end{longtable}\n`;
+            }
+
+            latexContent += `\\end{document}`;
+
+            // Save as .tex file for debugging (optional)
+            const texBlob = new Blob([latexContent], { type: 'text/x-tex' });
+            const texUrl = URL.createObjectURL(texBlob);
+            const texLink = document.createElement('a');
+            texLink.href = texUrl;
+            texLink.download = 'service_details.tex';
+            texLink.click();
+            URL.revokeObjectURL(texUrl);
+
+            // Note: Full PDF generation requires a LaTeX compiler like latexmk, which isn't directly supported here.
+            // Instead, we'll use html2canvas and jsPDF as a fallback to create a basic PDF from the HTML tables.
+            const element = document.createElement('div');
+            if (subscriptionTable.style.display !== 'none') {
+                element.appendChild(subscriptionTable.cloneNode(true));
+            }
+            if (addonTable.style.display !== 'none') {
+                element.appendChild(addonTable.cloneNode(true));
+            }
+
+            if (element.children.length > 0) {
+                html2canvas(element).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF();
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    pdf.save('service_details.pdf');
+                });
+            } else {
+                alert('Please select at least one subscription or add-on to generate a PDF.');
+            }
+        }
     </script>
 </body>
 </html>
