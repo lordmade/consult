@@ -166,9 +166,12 @@
         .cta a:hover {
             text-decoration: underline;
         }
-        .dropdown {
+        .dropdown-container {
             margin: 20px auto;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         .dropdown select {
             padding: 10px 20px;
@@ -184,7 +187,7 @@
             border-color: #ff4500;
             box-shadow: 0 0 5px rgba(255, 98, 0, 0.3);
         }
-        .subscription-table {
+        .subscription-table, .addon-table {
             margin: 20px auto;
             width: 80%;
             border-collapse: collapse;
@@ -193,12 +196,15 @@
             display: none;
         }
         .subscription-table th,
-        .subscription-table td {
+        .subscription-table td,
+        .addon-table th,
+        .addon-table td {
             border: 1px solid #ff6200;
             padding: 10px;
             text-align: left;
         }
-        .subscription-table th {
+        .subscription-table th,
+        .addon-table th {
             background-color: #ff6200;
             color: white;
         }
@@ -237,7 +243,11 @@
             .cards {
                 grid-template-columns: 1fr;
             }
-            .subscription-table {
+            .dropdown-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .subscription-table, .addon-table {
                 width: 100%;
             }
         }
@@ -342,17 +352,28 @@
     </div>
 
     <div class="section">
-        <h2>Monthly Subscriptions</h2>
-        <div class="dropdown">
-            <select id="subscriptionSelect">
-                <option value="" disabled selected>Select a Subscription</option>
-                <option value="basic">Basic (R1500) - >600000 turnover</option>
-                <option value="standard">Standard (R3500) - >600000 and <1000000 turnover</option>
-                <option value="premium">Premium (R5000) - >1000000 and <5000000 turnover</option>
-                <option value="premium_plus">Premium Plus (R10000) - >5000000 turnover</option>
-            </select>
+        <h2>Additional Services</h2>
+        <div class="dropdown-container">
+            <div class="dropdown">
+                <select id="subscriptionSelect">
+                    <option value="" disabled selected>Select a Subscription</option>
+                    <option value="basic">Basic (R1500) - >600000 turnover</option>
+                    <option value="standard">Standard (R3500) - >600000 and <1000000 turnover</option>
+                    <option value="premium">Premium (R5000) - >1000000 and <5000000 turnover</option>
+                    <option value="premium_plus">Premium Plus (R10000) - >5000000 turnover</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <select id="addonSelect">
+                    <option value="" disabled selected>Select an Add-On</option>
+                    <option value="payroll">Payroll Services</option>
+                    <option value="vat_audit">VAT Audit</option>
+                    <option value="once_off">Once-Off Services</option>
+                </select>
+            </div>
         </div>
         <table class="subscription-table" id="subscriptionTable"></table>
+        <table class="addon-table" id="addonTable"></table>
     </div>
 
     <div class="cta">
@@ -371,6 +392,8 @@
 
         const subscriptionSelect = document.getElementById('subscriptionSelect');
         const subscriptionTable = document.getElementById('subscriptionTable');
+        const addonSelect = document.getElementById('addonSelect');
+        const addonTable = document.getElementById('addonTable');
 
         subscriptionSelect.addEventListener('change', function() {
             const selectedValue = this.value;
@@ -442,6 +465,46 @@
             } else {
                 subscriptionTable.style.display = 'none';
                 subscriptionTable.innerHTML = '';
+            }
+        });
+
+        addonSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            let tableHTML = '';
+
+            if (selectedValue) {
+                addonTable.style.display = 'table';
+                switch (selectedValue) {
+                    case 'payroll':
+                        tableHTML = `
+                            <tr><th>Service</th><th>Price</th></tr>
+                            <tr><td>1-4 Employees</td><td>R600.00</td></tr>
+                            <tr><td>5-10 Employees</td><td>R1500.00</td></tr>
+                            <tr><td>11-50 Employees</td><td>R2550.00</td></tr>
+                            <tr><td>51-100 Employees</td><td>R3500.00</td></tr>
+                        `;
+                        break;
+                    case 'vat_audit':
+                        tableHTML = `
+                            <tr><th>Service</th><th>Price</th></tr>
+                            <tr><td>VAT Audit</td><td>R1000.00</td></tr>
+                        `;
+                        break;
+                    case 'once_off':
+                        tableHTML = `
+                            <tr><th>Service</th><th>Price</th></tr>
+                            <tr><td>Management Accounts (350 per month)</td><td>R4200.00</td></tr>
+                            <tr><td>IFRS for SME Financial Statements</td><td>R6000.00</td></tr>
+                            <tr><td>Basic Business/Plan</td><td>R1200.00</td></tr>
+                            <tr><td>Business Proposal</td><td>R1800.00</td></tr>
+                            <tr><td>Business Plan with Projections</td><td>R2500.00</td></tr>
+                        `;
+                        break;
+                }
+                addonTable.innerHTML = tableHTML;
+            } else {
+                addonTable.style.display = 'none';
+                addonTable.innerHTML = '';
             }
         });
     </script>
