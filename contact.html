@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N Consult Financial Services - Contact</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 100px 20px 60px;
+            background: url('https://img.freepik.com/free-photo/employee-working-with-document_23-2151872286.jpg?uid=R191095384&ga=GA1.1.220596507.1749805579&semt=ais_hybrid&w=740') no-repeat center center/cover;
+            color: white;
+            overflow: hidden;
+            min-height: 400px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 20px;
+        }
+        .nav {
+            padding: 10px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            margin-bottom: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+        }
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background-color: white;
+            border-radius: 0;
+        }
+        .nav-list li {
+            margin: 0 20px;
+        }
+        .nav-list li a {
+            color: #ff6200;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            display: block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .nav-list li a:hover {
+            color: #ff0000;
+            transform: translateY(-2px);
+        }
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: color 0.3s ease;
+            z-index: 4;
+        }
+        .hamburger:hover {
+            color: #ff0000;
+        }
+        .nav-list.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+            animation: slideDown 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-list.active li {
+            margin: 5px 0;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            animation: slideUp 1s ease;
+        }
+        .hero h2 span.we {
+            color: #ff6200;
+        }
+        .hero p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .section {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: white;
+            animation: fadeIn 1s ease;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            color: #333;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 98, 0, 0.2);
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .cta {
+            background: #ff6200;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .cta a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .cta a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            animation: fadeIn 1s ease;
+        }
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-list {
+                display: none;
+            }
+            .nav-list.active {
+                display: flex;
+            }
+            .hero h2 {
+                font-size: 1.8em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="hero" id="contact">
+        <div class="nav">
+            <div class="hamburger">☰</div>
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="hero-content">
+            <h2><span class="we">We</span> Are Here</h2>
+            <p>Get in touch with us for personalized financial support.</p>
+            <a href="#contact-info" class="cta-button">Contact Us</a>
+        </div>
+    </div>
+
+    <div class="section" id="contact-info">
+        <h2>Contact Information</h2>
+        <div class="cards">
+            <div class="card">
+                <i class="fas fa-envelope fa-3x" style="color: #ff6200; margin-bottom: 15px;"></i>
+                <h3>Email</h3>
+                <p>Reach us at enquiries@nconsult.co.za for all inquiries.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-phone fa-3x" style="color: #ff6200; margin-bottom: 15px;"></i>
+                <h3>Phone</h3>
+                <p>Call us at +27 79 203 3138 for immediate assistance.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-map-marker-alt fa-3x" style="color: #ff6200; margin-bottom: 15px;"></i>
+                <h3>Address</h3>
+                <p>Visit us at 123 Business Lane, Johannesburg, South Africa.</p>
+            </div>
+        </div>
+        <p><strong>Note:</strong> Scan the QR code below for detailed pricing information.</p>
+        <img src="qr-code-placeholder.png" alt="Pricing QR Code" style="max-width: 150px; margin-top: 20px;">
+    </div>
+
+    <div class="cta">
+        <h2>Schedule a Consultation</h2>
+        <p>Let’s discuss your needs. <a href="mailto:enquiries@nconsult.co.za">Email us</a> or call us today!</p>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 N Consult Financial Services. All rights reserved.</p>
+    </div>
+
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-list').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
