@@ -42,7 +42,26 @@
             max-width: 200px; /* Adjustable width for the logo */
             height: auto;
             margin-bottom: 20px;
+            position: relative; /* For positioning the smoke effect */
             animation: fadeIn 1s ease;
+        }
+        .hero-logo::before {
+            content: '';
+            position: absolute;
+            width: 120%; /* Slightly larger than the logo to create a smoke effect */
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%); /* White smoke effect */
+            top: -10%; /* Shift upward slightly */
+            left: -10%; /* Shift leftward slightly */
+            z-index: -1; /* Behind the logo */
+            border-radius: 50%; /* Soft circular shape */
+            opacity: 0.7; /* Subtle transparency */
+            animation: smokePulse 3s infinite ease-in-out; /* Gentle pulsing effect */
+        }
+        @keyframes smokePulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 0.7; }
         }
         .nav {
             padding: 10px 0;
@@ -234,6 +253,10 @@
             .hero-logo {
                 max-width: 150px; /* Smaller logo on mobile */
             }
+            .hero-logo::before {
+                width: 130%; /* Adjust smoke effect size for mobile */
+                height: 130%;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -251,7 +274,7 @@
             </ul>
         </div>
         <div class="hero-content">
-            <img src="ncon.png" alt="N Consult Financial Services Logo" class="hero-logo">
+            <img src="n-consult-logo.png" alt="N Consult Financial Services Logo" class="hero-logo">
             <h2><span class="we">We</span> Nurture Business</h2>
             <p>At N Consult, we are a team of seasoned professionals with a combined 16 years of experience in the finance industry. Our mission is to ensure your business remains fully compliant while giving you the freedom to focus on your core activities.</p>
             <p>We value our clients' entrepreneurial vision and see ourselves as a partner in helping your business set and achieve long-term goals. Our services cater to all your financial management, compliance, budgeting and planning, performance evaluation, and growth facilitation needs.</p>
