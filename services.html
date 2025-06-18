@@ -535,96 +535,53 @@
 
             const subscriptionTable = document.getElementById('subscriptionTable');
             const addonTable = document.getElementById('addonTable');
-            let yPos = 10;
+            const element = document.createElement('div');
+            element.style.padding = '20px';
 
-            // Generate LaTeX content dynamically
-            let latexContent = `
-                \\documentclass[a4paper]{article}
-                \\usepackage[utf8]{inputenc}
-                \\usepackage{geometry}
-                \\geometry{a4paper, margin=1in}
-                \\usepackage{booktabs}
-                \\usepackage{longtable}
-                \\usepackage{colortbl}
-                \\usepackage{xcolor}
-                \\definecolor{orangecolor}{RGB}{255, 98, 0}
+            // Add title and date
+            doc.setFontSize(16);
+            doc.text('N Consult Financial Services - Service Details', 10, 10);
+            doc.setFontSize(10);
+            doc.text('Generated on: ' + new Date().toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' }), 10, 20);
 
-                \\begin{document}
-
-                \\section*{N Consult Financial Services - Service Details}
-                \\centering
-                Generated on: June 18, 2025, 01:51 PM SAST
-            `;
+            let yPos = 30;
 
             if (subscriptionTable.style.display !== 'none' && subscriptionTable.innerHTML) {
-                latexContent += `
-                    \\subsection*{Subscription Details}
-                    \\begin{longtable}{p{0.4\\textwidth} p{0.4\\textwidth}}
-                    \\toprule
-                    \\rowcolor{orangecolor} Service & Details \\\\
-                    \\midrule
-                    \\endhead
-                `;
-                const rows = subscriptionTable.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    if (cells.length === 2) {
-                        latexContent += `${cells[0].textContent} & ${cells[1].textContent} \\\\`;
+                element.appendChild(subscriptionTable.cloneNode(true));
+                html2canvas(subscriptionTable).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgProps = doc.getImageProperties(imgData);
+                    const pdfWidth = doc.internal.pageSize.getWidth() - 20;
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    if (yPos + pdfHeight > doc.internal.pageSize.getHeight() - 20) {
+                        doc.addPage();
+                        yPos = 10;
                     }
-                }
-                latexContent += `\\bottomrule\n\\end{longtable}\n`;
+                    doc.addImage(imgData, 'PNG', 10, yPos, pdfWidth, pdfHeight);
+                    yPos += pdfHeight + 10;
+                });
             }
 
             if (addonTable.style.display !== 'none' && addonTable.innerHTML) {
-                latexContent += `
-                    \\subsection*{Add-On Details}
-                    \\begin{longtable}{p{0.4\\textwidth} p{0.4\\textwidth}}
-                    \\toprule
-                    \\rowcolor{orangecolor} Service & Price \\\\
-                    \\midrule
-                    \\endhead
-                `;
-                const rows = addonTable.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    if (cells.length === 2) {
-                        latexContent += `${cells[0].textContent} & ${cells[1].textContent} \\\\`;
-                    }
-                }
-                latexContent += `\\bottomrule\n\\end{longtable}\n`;
-            }
-
-            latexContent += `\\end{document}`;
-
-            // Save as .tex file for debugging (optional)
-            const texBlob = new Blob([latexContent], { type: 'text/x-tex' });
-            const texUrl = URL.createObjectURL(texBlob);
-            const texLink = document.createElement('a');
-            texLink.href = texUrl;
-            texLink.download = 'service_details.tex';
-            texLink.click();
-            URL.revokeObjectURL(texUrl);
-
-            // Note: Full PDF generation requires a LaTeX compiler like latexmk, which isn't directly supported here.
-            // Instead, we'll use html2canvas and jsPDF as a fallback to create a basic PDF from the HTML tables.
-            const element = document.createElement('div');
-            if (subscriptionTable.style.display !== 'none') {
-                element.appendChild(subscriptionTable.cloneNode(true));
-            }
-            if (addonTable.style.display !== 'none') {
                 element.appendChild(addonTable.cloneNode(true));
+                html2canvas(addonTable).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgProps = doc.getImageProperties(imgData);
+                    const pdfWidth = doc.internal.pageSize.getWidth() - 20;
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    if (yPos + pdfHeight > doc.internal.pageSize.getHeight() - 20) {
+                        doc.addPage();
+                        yPos = 10;
+                    }
+                    doc.addImage(imgData, 'PNG', 10, yPos, pdfWidth, pdfHeight);
+                });
             }
 
             if (element.children.length > 0) {
-                html2canvas(element).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF();
-                    const imgProps = pdf.getImageProperties(imgData);
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                    pdf.save('service_details.pdf');
-                });
+                // Ensure all canvases are processed before saving
+                setTimeout(() => {
+                    doc.save('service_details.pdf');
+                }, 500); // Small delay to ensure all images are added
             } else {
                 alert('Please select at least one subscription or add-on to generate a PDF.');
             }
