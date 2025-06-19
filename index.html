@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -72,6 +72,14 @@
             margin-bottom: 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            max-width: 100px; /* Smaller logo for navbar */
+            height: auto;
+            margin-left: 20px;
         }
         .nav-list {
             list-style: none;
@@ -269,6 +277,10 @@
                 max-width: 150px;
                 height: 150px;
             }
+            .nav-logo {
+                max-width: 80px; /* Smaller logo on mobile navbar */
+                margin-left: 10px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -276,6 +288,7 @@
 <body>
     <div class="hero" id="home">
         <div class="nav">
+            <img src="ncon.png" alt="N Consult Financial Services Logo" class="nav-logo">
             <div class="hamburger">☰</div>
             <ul class="nav-list">
                 <li><a href="index.html">Home</a></li>
@@ -358,18 +371,17 @@
         <h2>Meet the Team</h2>
         <div class="cards">
             <div class="card">
-                <img src="https://i.postimg.cc/L4fVJGB2/Whats-App-Image-2025-06-18-at-13-04-15.jpg" alt="Promise Mbewe">
+                <img src="https://i.postimg.cc/L4fVJGB2/Whats-App-Image-2025-06-18-at-13-04-15.jpg" alt="Rachel Rafapa">
                 <h3>Rachel Rafapa</h3>
                 <p><em>Managing Director</em></p>
                 <i class="fas fa-chart-line" style="color: #ff6200; margin-top: 10px;"></i>
             </div>
             <div class="card">
-                <img src="https://i.postimg.cc/nVQ3vXZ8/Whats-App-Image-2025-06-18-at-13-04-15-1.jpg" alt="Katlego Phasha">
+                <img src="https://i.postimg.cc/nVQ3vXZ8/Whats-App-Image-2025-06-18-at-13-04-15-1.jpg" alt="Kgothatso Moloantoa">
                 <h3>Kgothatso Moloantoa</h3>
                 <p><em>Assistance Bookkeeper</em></p>
                 <i class="fas fa-file-invoice-dollar" style="color: #ff6200; margin-top: 10px;"></i>
             </div>
-           
         </div>
     </div>
 
