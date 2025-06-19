@@ -44,22 +44,29 @@
             top: 0;
             left: 0;
             width: 100%;
-            margin-bottom: 0;
+            background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .nav-logo {
+            max-width: 150px;
+            height: auto;
+            margin-left: 20px;
+            margin-right: 20px;
         }
         .nav-list {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            align-items: center;
             transition: all 0.3s ease;
-            background-color: white;
-            border-radius: 0;
         }
         .nav-list li {
-            margin: 0 20px;
+            margin: 0 15px;
         }
         .nav-list li a {
             color: #ff6200;
@@ -76,13 +83,11 @@
         .hamburger {
             display: none;
             font-size: 30px;
-            color: white;
+            color: #333;
             cursor: pointer;
             padding: 10px;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
+            margin-left: auto;
+            margin-right: 20px;
             transition: color 0.3s ease;
             z-index: 4;
         }
@@ -261,12 +266,26 @@
             .dropdown-container {
                 flex-direction: column;
                 gap: 10px;
+                width: 100%;
+            }
+            .dropdown select {
+                width: 100%;
+                padding: 8px 10px;
+                font-size: 0.9em;
             }
             .subscription-table, .addon-table {
                 width: 100%;
             }
             .download-btn {
                 width: 100%;
+            }
+            .nav-logo {
+                max-width: 100px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .hamburger {
+                margin-right: 10px;
             }
         }
     </style>
@@ -277,7 +296,7 @@
 <body>
     <div class="hero" id="services">
         <div class="nav">
-            <div class="hamburger">☰</div>
+            <img src="ncon.png" alt="N Consult Financial Services Logo" class="nav-logo">
             <ul class="nav-list">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -285,12 +304,12 @@
                 <li><a href="partners.html">Partners</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <div class="hamburger">☰</div>
         </div>
         <div class="hero-content">
             <img src="ncon.png" alt="N Consult Financial Services Logo" class="hero-logo">
             <h2><span class="we">We</span> Offer Solutions</h2>
             <p>Explore our comprehensive financial services designed to support your business growth.</p>
-           
         </div>
     </div>
 
