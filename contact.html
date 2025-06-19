@@ -44,18 +44,18 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: white; /* Consistent white bar */
+            background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 3;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Align logo and links from the left */
+            justify-content: flex-start;
         }
         .nav-logo {
-            max-width: 150px; /* Adjusted to match a reasonable size similar to the reference */
+            max-width: 150px;
             height: auto;
             margin-left: 20px;
-            margin-right: 20px; /* Space between logo and nav links */
+            margin-right: 20px;
         }
         .nav-list {
             list-style: none;
@@ -66,7 +66,7 @@
             transition: all 0.3s ease;
         }
         .nav-list li {
-            margin: 0 15px; /* Adjusted margin for horizontal spacing */
+            margin: 0 15px;
         }
         .nav-list li a {
             color: #ff6200;
@@ -83,10 +83,10 @@
         .hamburger {
             display: none;
             font-size: 30px;
-            color: #333; /* Dark color for visibility on white background */
+            color: #333;
             cursor: pointer;
             padding: 10px;
-            margin-left: auto; /* Pushes hamburger to the far right */
+            margin-left: auto;
             margin-right: 20px;
             transition: color 0.3s ease;
             z-index: 4;
@@ -125,6 +125,21 @@
             font-size: 1.1em;
             margin-bottom: 20px;
         }
+        .cta-button {
+            padding: 12px 25px;
+            background-color: #ff6200;
+            color: white;
+            border: none;
+            border-radius: 25px; /* Pill shape */
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #ff4500;
+        }
         .section {
             padding: 40px 20px;
             text-align: center;
@@ -155,11 +170,11 @@
             border-radius: 50%;
             margin-bottom: 15px;
         }
-       .cta {
+        .cta {
             background: #ff6200;
             color: white;
             padding: 20px;
-            border-radius: 0; /* Straight edges */
+            border-radius: 0;
             margin-top: 40px;
         }
         .cta a {
@@ -185,6 +200,96 @@
             color: white;
             animation: fadeIn 1s ease;
         }
+        /* Bottom Sheet Styles */
+        .bottom-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: bottom 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .bottom-sheet.active {
+            bottom: 0;
+        }
+        .bottom-sheet-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .bottom-sheet-overlay.active {
+            display: block;
+        }
+        .bottom-sheet-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .bottom-sheet-header img {
+            max-width: 80px;
+            height: auto;
+            margin-right: 10px;
+        }
+        .bottom-sheet-header h3 {
+            margin: 0;
+            color: #ff6200;
+            font-size: 1.5em;
+        }
+        .bottom-sheet form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .bottom-sheet .form-group {
+            position: relative;
+        }
+        .bottom-sheet .form-group i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        .bottom-sheet input,
+        .bottom-sheet select {
+            padding: 12px 12px 12px 40px;
+            border: 2px solid #ff6200;
+            border-radius: 8px;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .bottom-sheet input:focus,
+        .bottom-sheet select:focus {
+            border-color: #ff4500;
+            outline: none;
+        }
+        .bottom-sheet button {
+            padding: 12px;
+            background-color: #ff6200;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .bottom-sheet button:hover {
+            background-color: #ff4500;
+        }
         /* Mobile Optimization */
         @media (max-width: 768px) {
             .hamburger {
@@ -206,12 +311,18 @@
                 grid-template-columns: 1fr;
             }
             .nav-logo {
-                max-width: 100px; /* Smaller logo on mobile navbar */
+                max-width: 100px;
                 margin-left: 10px;
                 margin-right: 10px;
             }
             .hamburger {
                 margin-right: 10px;
+            }
+            .bottom-sheet-header img {
+                max-width: 60px;
+            }
+            .bottom-sheet-header h3 {
+                font-size: 1.2em;
             }
         }
     </style>
@@ -233,7 +344,7 @@
         <div class="hero-content">
             <h2><span class="we">We</span> Are Here</h2>
             <p>Get in touch with us for personalized financial support.</p>
-           
+            <button class="cta-button" onclick="toggleBottomSheet()">Get a Quote</button>
         </div>
     </div>
 
@@ -269,9 +380,71 @@
         <p>© 2025 N Consult Financial Services. All rights reserved.</p>
     </div>
 
+    <div class="bottom-sheet-overlay" onclick="toggleBottomSheet()"></div>
+    <div class="bottom-sheet">
+        <div class="bottom-sheet-header">
+            <img src="ncon.png" alt="N Consult Logo" class="sheet-logo">
+            <h3>Get a Quote</h3>
+        </div>
+        <form id="quoteForm">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="surname" placeholder="Surname" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-phone"></i>
+                <input type="text" name="contact" placeholder="Contact Number" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-users"></i>
+                <select name="clientType" required>
+                    <option value="" disabled selected>Select Client Type</option>
+                    <option value="company">Company</option>
+                    <option value="individual">Individual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-cogs"></i>
+                <select name="service" required>
+                    <option value="" disabled selected>Select a Service</option>
+                    <option value="basic">Basic Package (R1000)</option>
+                    <option value="startup">Start Up Package (R1400)</option>
+                    <option value="tender">Tender Ready (R1600)</option>
+                    <option value="cipc">CIPC Services</option>
+                    <option value="sars">SARS Service</option>
+                    <option value="other">Other Registrations</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
     <script>
         document.querySelector('.hamburger').addEventListener('click', function() {
             document.querySelector('.nav-list').classList.toggle('active');
+        });
+
+        function toggleBottomSheet() {
+            const sheet = document.querySelector('.bottom-sheet');
+            const overlay = document.querySelector('.bottom-sheet-overlay');
+            sheet.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            alert('Thank you for your request! We will contact you soon at ' + formData.get('email') + '.');
+            this.reset();
+            toggleBottomSheet();
         });
     </script>
 </body>
