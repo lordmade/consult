@@ -228,6 +228,22 @@
         .download-btn:hover {
             background-color: #ff4500;
         }
+        .compliance-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #ff6200;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 25px; /* Pill shape */
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 2;
+        }
+        .compliance-btn:hover {
+            background-color: #ff4500;
+            transform: translateY(-2px);
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -279,6 +295,10 @@
             .download-btn {
                 width: 100%;
             }
+            .compliance-btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
             .nav-logo {
                 max-width: 100px;
                 margin-left: 10px;
@@ -310,6 +330,7 @@
             <img src="ncon.png" alt="N Consult Financial Services Logo" class="hero-logo">
             <h2><span class="we">We</span> Offer Solutions</h2>
             <p>Explore our comprehensive financial services designed to support your business growth.</p>
+            <a href="compliance.html" class="compliance-btn">Check Compliance</a>
         </div>
     </div>
 
