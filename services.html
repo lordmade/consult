@@ -311,7 +311,7 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPDF/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="hero" id="services">
@@ -323,7 +323,7 @@
                 <li><a href="services.html">Services</a></li>
                 <li><a href="partners.html">Partners</a></li>
                 <li><a href="contact.html">Contact</a></li>
-            </ul>
+           -Exluded-</ul>
             <div class="hamburger">☰</div>
         </div>
         <div class="hero-content">
@@ -332,6 +332,33 @@
             <p>Explore our comprehensive financial services designed to support your business growth.</p>
             <a href="compliance.html" class="compliance-btn">Check Compliance</a>
         </div>
+    </div>
+
+    <div class="section">
+        <h2>Monthly Subscriptions & Additional Services</h2>
+        <p>Select a subscription or add-on from the dropdown menus below to view detailed service information and pricing. Use these options to customize your financial services package.</p>
+        <div class="dropdown-container">
+            <div class="dropdown">
+                <select id="subscriptionSelect">
+                    <option value="" disabled selected>Select a Subscription</option>
+                    <option value="basic">Basic (R1500) - >600000 turnover</option>
+                    <option value="standard">Standard (R3500) - >600000 and <1000000 turnover</option>
+                    <option value="premium">Premium (R5000) - >1000000 and <5000000 turnover</option>
+                    <option value="premium_plus">Premium Plus (R10000) - >5000000 turnover</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <select id="addonSelect">
+                    <option value="" disabled selected>Select an Add-On</option>
+                    <option value="payroll">Payroll Services</option>
+                    <option value="vat_audit">VAT Audit</option>
+                    <option value="once_off">Once-Off Services</option>
+                </select>
+            </div>
+        </div>
+        <table class="subscription-table" id="subscriptionTable"></table>
+        <table class="addon-table" id="addonTable"></table>
+        <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
     </div>
 
     <div class="section" id="services-list">
@@ -358,7 +385,7 @@
                     <li>Income Tax Registration</li>
                     <li>CIPC BEE Certificate</li>
                     <li>SARS Tax Compliance Pin</li>
-                    <li>SARS Registered Representative Appointment</li>
+                    <li>SARS Approximate Representative Appointment</li>
                     <li>CIPC Profile Registration</li>
                     <li>Share Certificate</li>
                 </ul>
@@ -412,32 +439,6 @@
         <p style="font-style: italic;">* per annum</p>
     </div>
 
-    <div class="section">
-        <h2>Monthly Subscriptions & Additional Services</h2>
-        <div class="dropdown-container">
-            <div class="dropdown">
-                <select id="subscriptionSelect">
-                    <option value="" disabled selected>Select a Subscription</option>
-                    <option value="basic">Basic (R1500) - >600000 turnover</option>
-                    <option value="standard">Standard (R3500) - >600000 and <1000000 turnover</option>
-                    <option value="premium">Premium (R5000) - >1000000 and <5000000 turnover</option>
-                    <option value="premium_plus">Premium Plus (R10000) - >5000000 turnover</option>
-                </select>
-            </div>
-            <div class="dropdown">
-                <select id="addonSelect">
-                    <option value="" disabled selected>Select an Add-On</option>
-                    <option value="payroll">Payroll Services</option>
-                    <option value="vat_audit">VAT Audit</option>
-                    <option value="once_off">Once-Off Services</option>
-                </select>
-            </div>
-        </div>
-        <table class="subscription-table" id="subscriptionTable"></table>
-        <table class="addon-table" id="addonTable"></table>
-        <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
-    </div>
-
     <div class="cta">
         <h2>Get Started Today</h2>
         <p>Let us help you with your financial needs. <a href="contact.html">Contact us now</a>!</p>
@@ -448,6 +449,7 @@
     </div>
 
     <script>
+        // document demonstrates how to toggle the navigation list for mobile devices
         document.querySelector('.hamburger').addEventListener('click', function() {
             document.querySelector('.nav-list').classList.toggle('active');
         });
