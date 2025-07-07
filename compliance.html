@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N Consult Financial Services - Compliance Check</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 100px 20px 60px;
+            background: url('https://img.freepik.com/free-photo/employee-working-with-document_23-2151872286.jpg?uid=R191095384&ga=GA1.1.220596507.1749805579&semt=ais_hybrid&w=740') no-repeat center center/cover;
+            color: white;
+            overflow: hidden;
+            min-height: 400px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-top: 20px;
+        }
+        .nav {
+            padding: 10px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .nav-logo {
+            max-width: 150px;
+            height: auto;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .nav-list li {
+            margin: 0 15px;
+        }
+        .nav-list li a {
+            color: #ff6200;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            display: block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .nav-list li a:hover {
+            color: #ff0000;
+            transform: translateY(-2px);
+        }
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            margin-left: auto;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+            z-index: 4;
+        }
+        .hamburger:hover {
+            color: #ff6200;
+        }
+        .nav-list.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+            animation: slideDown 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-list.active li {
+            margin: 5px 0;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            animation: slideUp 1s ease;
+        }
+        .hero h2 span.we {
+            color: #ff6200;
+        }
+        .hero p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .section {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: white;
+            animation: fadeIn 1s ease;
+        }
+        .compliance-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ff6200;
+        }
+        .compliance-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .compliance-form input[type="checkbox"],
+        .compliance-form input[type="radio"] {
+            margin-right: 10px;
+        }
+        .compliance-form .submit-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6200;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .compliance-form .submit-btn:hover {
+            background-color: #ff4500;
+        }
+        .compliance-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 2px solid #ff6200;
+            border-radius: 10px;
+            display: none;
+        }
+        .compliance-result h3 {
+            margin-top: 0;
+            color: #ff6200;
+        }
+        .cta {
+            background: #ff6200;
+            color: white;
+            padding: 20px;
+            border-radius: 0;
+            margin-top: 40px;
+        }
+        .cta a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .cta a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            animation: fadeIn 1s ease;
+        }
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-list {
+                display: none;
+            }
+            .nav-list.active {
+                display: flex;
+            }
+            .hero h2 {
+                font-size: 1.8em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .compliance-form {
+                padding: 15px;
+            }
+            .compliance-form .submit-btn {
+                width: 100%;
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            .nav-logo {
+                max-width: 100px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .hamburger {
+                margin-right: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="hero" id="compliance">
+        <div class="nav">
+            <img src="ncon.png" alt="N Consult Financial Services Logo" class="nav-logo">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">☰</div>
+        </div>
+        <div class="hero-content">
+            <img src="ncon.png" alt="N Consult Financial Services Logo" class="hero-logo">
+            <h2><span class="we">Ensure</span> Your Compliance</h2>
+            <p>Check if your business meets key compliance requirements.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Business Compliance Check</h2>
+        <p>Use the form below to verify your business's compliance status. Check the appropriate boxes and submit to see your compliance summary.</p>
+        <div class="compliance-form">
+            <label>
+                <input type="checkbox" id="cipcFee"> Have you paid your CIPC annual return fee (R100 or R150, including penalties)?
+            </label>
+            <label>
+                <input type="checkbox" id="employeeTaxes"> Are you compliant with Employee Taxes?
+            </label>
+            <label>
+                <input type="checkbox" id="incomeTaxes"> Are you compliant with Income Taxes?
+            </label>
+            <label>
+                Is your business making more than R1 million in revenue annually (VAT registration requirement)?
+            </label>
+            <label>
+                <input type="radio" name="vatRevenue" id="vatYes" value="yes"> Yes
+            </label>
+            <label>
+                <input type="radio" name="vatRevenue" id="vatNo" value="no"> No
+            </label>
+            <button class="submit-btn" onclick="checkCompliance()">Submit</button>
+        </div>
+        <div class="compliance-result" id="complianceResult">
+            <h3>Compliance Summary</h3>
+            <ul id="resultList"></ul>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h2>Need Help with Compliance?</h2>
+        <p>Let us assist you in ensuring your business meets all regulatory requirements. <a href="contact.html">Contact us now</a>!</p>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 N Consult Financial Services. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Toggles the navigation list for mobile devices
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-list').classList.toggle('active');
+        });
+
+        function checkCompliance() {
+            const cipcFee = document.getElementById('cipcFee').checked;
+            const employeeTaxes = document.getElementById('employeeTaxes').checked;
+            const incomeTaxes = document.getElementById('incomeTaxes').checked;
+            const vatYes = document.getElementById('vatYes').checked;
+            const vatNo = document.getElementById('vatNo').checked;
+            const resultList = document.getElementById('resultList');
+            const complianceResult = document.getElementById('complianceResult');
+
+            let results = [];
+
+            if (cipcFee) {
+                results.push('✔ CIPC Annual Return Fee: Paid');
+            } else {
+                results.push('✘ CIPC Annual Return Fee: Not paid (R100 or R150, including penalties required)');
+            }
+
+            if (employeeTaxes) {
+                results.push('✔ Employee Taxes: Compliant');
+            } else {
+                results.push('✘ Employee Taxes: Not compliant');
+            }
+
+            if (incomeTaxes) {
+                results.push('✔ Income Taxes: Compliant');
+            } else {
+                results.push('✘ Income Taxes: Not compliant');
+            }
+
+            if (vatYes) {
+                results.push('⚠ VAT: Your business exceeds R1 million in revenue, VAT registration may be required');
+            } else if (vatNo) {
+                results.push('✔ VAT: Your business does not exceed R1 million in revenue, VAT registration not required');
+            } else {
+                results.push('⚠ VAT: Please select whether your business exceeds R1 million in revenue');
+            }
+
+            // Display results
+            resultList.innerHTML = results.map(item => `<li>${item}</li>`).join('');
+            complianceResult.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
